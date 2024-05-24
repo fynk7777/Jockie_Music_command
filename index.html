@@ -168,6 +168,16 @@ addCommand('m!reactionroles', 'リアクションロールのリストを表示�
 addCommand('m!serversettings', 'サーバーの設定を表示します。');
 addCommand('m!version', 'ボットのバージョン情報を表示します。');
 
+
+function copyCommand(command) {
+    const el = document.createElement('textarea');
+    el.value = command;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert(`${command} をコピーしました！`);
+}
     function searchCommands() {
         let input = document.getElementById('search-input');
         let filter = input.value.toUpperCase();
