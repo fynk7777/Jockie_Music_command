@@ -183,11 +183,26 @@ addCommand('m!version', 'ボットのバージョン情報を表示します。'
             }
         }
     }
+            function copyCommand(command) {
+            const el = document.createElement('textarea');
+            el.value = command;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert(`${command} をコピーしました！`);
+        }
+        
+        function searchCommands() {
+            // searchCommands 関数
+        }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('search-input').focus();
-    });
-</script>
-<a href="https://mirukupc.com/2022/01/19/?p=45" target="_blank">コマンド集(ここにないものもある)</a>
+        // ページ読み込み時にフォーカスする
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('search-input').focus();
+        });
+    </script>
+    
+    <a href="https://mirukupc.com/2022/01/19/?p=45" target="_blank">コマンド集(ここにないものもある)</a>
 </body>
 </html>
