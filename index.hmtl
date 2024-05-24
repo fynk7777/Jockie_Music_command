@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コマンド一覧</title>
+    <style>
+        .command-container {
+            margin-bottom: 10px;
+        }
+        .command {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .description {
+            margin-right: 10px;
+        }
+        .copy-button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #search-input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <input type="text" id="search-input" onkeyup="searchCommands()" placeholder="コマンドを検索...">
+</div>
+
+<script>
+    function addCommand(command, description) {
+        let commandContainer = document.createElement('div');
+        commandContainer.classList.add('command-container');
+
+        let commandElement = document.createElement('span');
+        commandElement.classList.add('command');
+        commandElement.innerText = command;
+
+        let descriptionElement = document.createElement('span');
+        descriptionElement.classList.add('description');
+        descriptionElement.innerText = description;
+
+        let copyButton = document.createElement('button');
+        copyButton.classList.add('copy-button');
+        copyButton.innerText = 'コピー';
+        copyButton.setAttribute('onclick', `copyCommand('${command}')`);
+
+        commandContainer.appendChild(commandElement);
+        commandContainer.appendChild(descriptionElement);
+        commandContainer.appendChild(copyButton);
+
+        document.body.appendChild(commandContainer);
+    }
+
+    // コマンドを追加するスクリプトを以下に配置
+    addCommand('m!play <URLまたは検索キーワード>', '指定したURLの曲または検索キーワードに一致する曲を再生します。');
+    addCommand('m!search <検索キーワード>', '指定したキーワードでYouTubeを検索して、結果を表示します。');
+    addCommand('m!pause', '現在再生中の曲を一時停止します。');
+    addCommand('m!resume', '一時停止中の曲の再生を再開します。');
+    addCommand('m!skip', '現在再生中の曲をスキップします。');
+    addCommand('m!stop', '再生中の曲を停止し、キューをクリアします。');
+    addCommand('m!queue', '現在のキュー内の曲のリストを表示します。');
+    addCommand('m!volume <1-100>', '音量を設定します。');
+    addCommand('m!np', '現在再生中の曲の情報を表示します。');
+    addCommand('m!shuffle', 'キュー内の曲をシャッフルします。');
+    addCommand('m!remove <キュー番号>', '指定した番号の曲をキューから削除します。');
+    addCommand('m!playselect <URL>', '指定したURLのプレイリストから1曲を選んで再生キューに追加します。');
+    addCommand('m!next up', 'キュー内の次の曲の情報を表示します。');
+    addCommand('m!queue information', '現在のキューの情報を表示します。');
+    addCommand('m!loop', '現在の曲をループ再生します。');
+    addCommand('m!remove loop', 'ループ再生を解除します。');
+    addCommand('m!lyrics', '現在の曲の歌詞を表示します。');
+    addCommand('m!seek <時間>', '曲の指定した時間（秒）から再生します。');
+    addCommand('m!queue add <URL>', '指定したURLの曲をキューに追加します。');
+    addCommand('m!move <現在の位置> <移動先の位置>', '曲をキュー内で指定した位置に移動します。');
+    addCommand('m!clear <1-100>', 'キュー内の指定した位置の曲を削除します。');
+    addCommand('m!lyrics clear', '歌詞表示をクリアします。');
+    addCommand('m!seektime', '曲の再生時間を表示します。');
+    addCommand('m!playlist', 'サーバー内のプレイリストを表示します。');
+    addCommand('m!playlist add <名前> <URL>', 'プレイリストに曲を追加します。');
+    addCommand('m!playlist remove <名前> <1-100>', 'プレイリストから曲を削除します。');
+    addCommand('m!playlist play <名前>', 'プレイリストの曲を再生キューに追加します。');
+    addCommand('m!dj', 'DJモードを有効または無効にします。');
+    addCommand('m!dj add <ユーザー>', 'DJモードにユーザーを追加します。');
+    addCommand('m!dj remove <ユーザー>', 'DJモードからユーザーを削除します。');
+    addCommand('m!dj clear', 'DJモードのユーザーリストをクリアします。');
+    addCommand('m!dj lock', 'DJモードをロックまたはアンロックします。');
+    addCommand('m!history', '再生履歴を表示します。');
+    addCommand('m!info', 'ボットの情報を表示します。');
+    addCommand('m!invite', 'ボットの招待リンクを表示します。');
+    addCommand('m!help', 'ヘルプメッセージを表示します。');
+    addCommand('m!vote <option>', '投票を開始します。');
+    addCommand('m!endvote', '投票を終了します。');
+    addCommand('m!kick <ユーザー>', '指定したユーザーをサーバーからキックします。');
+    addCommand('m!ban <ユーザー>', '指定したユーザーをサーバーから永久に追放します。');
+    addCommand('m!unban <ユーザー>', '指定したユーザーのバンを解除します。');
+    addCommand('m!mute <ユーザー> <時間>', '指定したユーザーを指定した時間だけミュートします。');
+    addCommand('m!unmute <ユーザー>', '指定したユーザーのミュートを解除します。');
+    addCommand('m!lock', 'チャンネルをロックして他の人がメッセージを送信できないようにします。');
+    addCommand('m!unlock', 'チャンネルのロックを解除して他の人がメッセージを送信できるようにします。');
+    addCommand('m!slowmode <秒数>', 'スローモード（メッセージの送信間隔を制限）を設定します。');
+    addCommand('m!userinfo <ユーザー>', '指定したユーザーの情報を表示します。');
+addCommand('m!loopoff', '曲のループ再生をオフにします。');
+addCommand('m!forward <time>', '曲を指定した時間だけ前に進めます。');
+addCommand('m!rewind <time>', '曲を指定した時間だけ巻き戻します。');
+addCommand('m!autoremove', '再生が終了した曲を自動的にキューから削除します。');
+addCommand('m!bassboost on', '低音増強機能をオンにします。');
+addCommand('m!bassboost off', '低音増強機能をオフにします。');
+addCommand('m!clearqueue', 'キュー内の曲をすべて削除します。');
+addCommand('m!serverinfo', 'サーバーの情報を表示します。');
+addCommand('m!playlist clear', 'プレイリストをクリアします。');
+addCommand('m!playlist shuffle', 'プレイリストをシャッフルします。');
+addCommand('m!playlist loop', 'プレイリストをループ再生します。');
+addCommand('m!playlist remove song <position>', 'プレイリストから指定された位置の曲を削除します。');
+addCommand('m!slice <start> <end>', '曲を指定されたポイントで分割します。');
+addCommand('m!reverse', '曲の再生順を逆にします。');
+addCommand('m!reverseplaylist', 'プレイリストの曲順を逆にします。');
+addCommand('m!repeat', '現在の曲をリピート再生します。');
+addCommand('m!remove_previous', '前に再生した曲をキューから削除します。');
+addCommand('m!leaveall', 'ボットを全てのボイスチャンネルから退出させます。');
+addCommand('m!nightcore on', 'ナイトコアモードをオンにします。');
+addCommand('m!nightcore off', 'ナイトコアモードをオフにします。');
+addCommand('m!react <emote>', '現在のメッセージに指定されたリアクションを追加します。');
+addCommand('m!random', 'プレイリストからランダムな曲を再生します。');
+addCommand('m!randomplay', 'ランダム再生モードを有効にします。');
+addCommand('m!randomoff', 'ランダム再生モードをオフにします。');
+addCommand('m!invitelink', 'ボットの招待リンクを表示します。');
+addCommand('m!suggest', '曲の提案をリクエストします。');
+addCommand('m!suggestlist', '提案された曲のリストを表示します。');
+addCommand('m!suggestremove <番号>', '指定した番号の提案を削除します。');
+addCommand('m!volumedown', '音量を下げます。');
+addCommand('m!volumeup', '音量を上げます。');
+addCommand('m!volumeoff', '音量をミュートします。');
+addCommand('m!voteplay <option>', '選択されたオプションの曲を再生します。');
+addCommand('m!jointime', 'ボイスチャンネルに参加してからの経過時間を表示します。');
+addCommand('m!uptime', 'ボットがオンラインである時間を表示します。');
+addCommand('m!restart', 'ボットを再起動します。');
+addCommand('m!shutdown', 'ボットを終了します。');
+addCommand('m!count', 'キュー内の総曲数を表示します。');
+addCommand('m!ping', 'ボットの応答速度を表示します。');
+addCommand('m!uptime', 'ボットの稼働時間を表示します。');
+addCommand('m!setprefix <prefix>', 'コマンドのプレフィックスを変更します。');
+addCommand('m!skipcount', 'スキップされた回数を表示します。');
+addCommand('m!skipreset', 'スキップ回数をリセットします。');
+addCommand('m!lockdown', 'サーバーをロックダウンモードにします。');
+addCommand('m!serverlock', 'チャンネルをサーバーロックします。');
+addCommand('m!serverunlock', 'チャンネルのロックを解除します。');
+addCommand('m!roles', 'サーバー内の役職のリストを表示します。');
+addCommand('m!emoji', 'サーバー内の絵文字を表示します。');
+addCommand('m!reactrole', 'リアクションロールを追加します。');
+addCommand('m!removereactrole', 'リアクションロールを削除します。');
+addCommand('m!reaction', 'リアクションメッセージを送信します。');
+addCommand('m!reactionreset', 'リアクションリセットメッセージを送信します。');
+addCommand('m!reactionroles', 'リアクションロールのリストを表示します。');
+addCommand('m!serversettings', 'サーバーの設定を表示します。');
+addCommand('m!version', 'ボットのバージョン情報を表示します。');
+
+
+    function searchCommands() {
+        let input = document.getElementById('search-input');
+        let filter = input.value.toUpperCase();
+        let commandContainers = document.getElementsByClassName('command-container');
+        for (let i = 0; i < commandContainers.length; i++) {
+            let commandContainer = commandContainers[i];
+            let command = commandContainer.getElementsByClassName("command")[0];
+            let description = commandContainer.getElementsByClassName("description")[0];
+            if (command.innerText.toUpperCase().indexOf(filter) > -1 || description.innerText.toUpperCase().indexOf(filter) > -1) {
+                commandContainer.style.display = "";
+            } else {
+                commandContainer.style.display = "none";
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('search-input').focus();
+    });
+</script>
+
+</body>
+</html>
