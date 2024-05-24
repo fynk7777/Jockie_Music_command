@@ -45,7 +45,7 @@
 
         let commandElement = document.createElement('span');
         commandElement.classList.add('command');
-        commandElement.innerText = command;
+        commandElement.innerText = command.split(' ')[0]; // 最初のスペースで分割してコマンド部分のみ表示
 
         let descriptionElement = document.createElement('span');
         descriptionElement.classList.add('description');
@@ -54,7 +54,7 @@
         let copyButton = document.createElement('button');
         copyButton.classList.add('copy-button');
         copyButton.innerText = 'コピー';
-        copyButton.setAttribute('onclick', `copyCommand('${command}')`);
+        copyButton.setAttribute('onclick', `copyCommand('${command.split(' ')[0]}')`);
 
         commandContainer.appendChild(commandElement);
         commandContainer.appendChild(descriptionElement);
@@ -168,31 +168,6 @@ addCommand('m!reactionroles', 'リアクションロールのリストを表示�
 addCommand('m!serversettings', 'サーバーの設定を表示します。');
 addCommand('m!version', 'ボットのバージョン情報を表示します。');
 
-
-function addCommand(command, description) {
-    let commandContainer = document.createElement('div');
-    commandContainer.classList.add('command-container');
-
-    let commandElement = document.createElement('span');
-    commandElement.classList.add('command');
-    commandElement.innerText = command.split(' ')[0]; // 最初のスペースで分割してコマンド部分のみ表示
-
-    let descriptionElement = document.createElement('span');
-    descriptionElement.classList.add('description');
-    descriptionElement.innerText = description;
-
-    let copyButton = document.createElement('button');
-    copyButton.classList.add('copy-button');
-    copyButton.innerText = 'コピー';
-    copyButton.setAttribute('onclick', `copyCommand('${command.split(' ')[0]}')`);
-
-    commandContainer.appendChild(commandElement);
-    commandContainer.appendChild(descriptionElement);
-    commandContainer.appendChild(copyButton);
-
-    document.body.appendChild(commandContainer);
-    
-    
     function searchCommands() {
         let input = document.getElementById('search-input');
         let filter = input.value.toUpperCase();
